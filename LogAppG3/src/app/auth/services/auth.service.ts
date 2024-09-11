@@ -1,26 +1,32 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { user } from '../interfaces/us-interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  //Injecciones de servicios
+  private http = inject(HttpClient);
+
+  //Variables
   private baseUrl : string = environment.baseUrl;
   private _user! : user;
 
+  constructor() { }
+
+  //Funciones
   get user(){
     return {...this._user}
   }
-
-  constructor(private http: HttpClient) { }
 
   register(usname : string, id : string, pass: string ) {
     const URL =  `${this.baseUrl}/auth/new`;
     const body = {usname, id, pass};
 
-    
+
   }
 
   login(id: string, pass: string) {
@@ -31,6 +37,6 @@ export class AuthService {
   }
 
   validateToken() {
-
+    // const headers = new HttpHeaders().set('Authorization', Bearer ${ token });
   }
 }
